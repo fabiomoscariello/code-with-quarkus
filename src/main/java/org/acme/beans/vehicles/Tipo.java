@@ -1,4 +1,4 @@
-package org.acme.factory;
+package org.acme.beans.vehicles;
 
 public enum Tipo {
     AUTO,
