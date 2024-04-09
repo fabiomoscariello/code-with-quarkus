@@ -1,8 +1,5 @@
 package org.acme.factory;
 
-
-import javax.xml.crypto.Data;
-
 import org.acme.beans.vehicles.Automobile;
 import org.acme.beans.vehicles.Motociclo;
 import org.acme.beans.vehicles.Tipo;

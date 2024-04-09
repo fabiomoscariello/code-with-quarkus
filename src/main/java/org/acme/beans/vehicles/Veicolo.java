@@ -1,5 +1,4 @@
 package org.acme.beans.vehicles;
-import javax.xml.crypto.Data;
 
 import org.acme.Assicurabile;
 
