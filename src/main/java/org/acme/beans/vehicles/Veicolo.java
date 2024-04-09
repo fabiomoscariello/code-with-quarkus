@@ -9,8 +9,7 @@ public class Veicolo implements Assicurabile{
     private String targa;
     private String modello;
     private String nome;
-    private Data data;
-    private Tipo tipo;
+    private String data;
     
     public String getModello() {
         return modello;
@@ -28,17 +27,17 @@ public class Veicolo implements Assicurabile{
         this.nome = nome;
     }
 
-    public Data getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Data data) {
+    public void setData(String data) {
         this.data = data;
     }
 
     public Veicolo(){}
 
-    public Veicolo(String targa,String modello ,String nome,Data data){
+    public Veicolo(String targa,String modello ,String nome,String data){
         
     }
 

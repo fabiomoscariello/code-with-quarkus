@@ -4,8 +4,8 @@ import org.acme.Assicurabile;
 
 public class Insurance {
     
-    public Assicurabile assicurabile;
-    public String id;
+    private Assicurabile assicurabile;
+    private String id;
 
     public Assicurabile getAssicurabile() {
         return assicurabile;

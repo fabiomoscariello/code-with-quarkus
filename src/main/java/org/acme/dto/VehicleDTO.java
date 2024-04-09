@@ -1,7 +1,5 @@
 package org.acme.dto;
 
-import javax.xml.crypto.Data;
-
 import org.acme.beans.vehicles.Tipo;
 
 public class VehicleDTO {
@@ -9,11 +7,20 @@ public class VehicleDTO {
     private final String targa;
     private final String modello;
     private final String nome;
-    private final Data data;
+    private final String data;
     private final Tipo tipo;
     
+    public VehicleDTO(){
+        this.targa = "";
+        this.modello = "";
+        this.nome = "";
+        this.data = "";
+        this.tipo = Tipo.AUTO;
+
+    }
+
     // Constructor with required fields
-    public VehicleDTO(String targa, String modello, String nome, Data data, Tipo tipo) {
+    public VehicleDTO(String targa, String modello, String nome, String data, Tipo tipo) {
       this.targa = targa;
       this.modello = modello;
       this.nome = nome;
@@ -33,7 +40,7 @@ public class VehicleDTO {
         return nome;
     }
 
-    public Data getData() {
+    public String getData() {
         return data;
     }
 

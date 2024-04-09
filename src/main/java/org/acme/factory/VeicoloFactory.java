@@ -20,7 +20,7 @@ public class VeicoloFactory {
             String nome = vehicleDTO.getNome();
             String modello = vehicleDTO.getModello();
             String targa = vehicleDTO.getTarga();
-            Data data = vehicleDTO.getData();
+            String data = vehicleDTO.getData();
             Tipo tipo = vehicleDTO.getTipo();
             switch (tipo) {
                 case AUTO:
