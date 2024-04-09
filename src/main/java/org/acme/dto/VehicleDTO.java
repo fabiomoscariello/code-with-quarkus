@@ -10,6 +10,12 @@ public class VehicleDTO {
     private final String data;
     private final Tipo tipo;
     
+    @Override
+    public String toString() {
+        return "VehicleDTO [targa=" + targa + ", modello=" + modello + ", nome=" + nome + ", data=" + data + ", tipo="
+                + tipo + "]";
+    }
+
     public VehicleDTO(){
         this.targa = "";
         this.modello = "";

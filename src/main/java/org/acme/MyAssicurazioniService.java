@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.acme.beans.insurance.Insurance;
 import org.acme.beans.vehicles.Veicolo;
+import org.acme.dto.InsuranceDTO;
 import org.acme.dto.VehicleDTO;
 import org.acme.factory.VeicoloFactory;
 
@@ -20,4 +21,21 @@ public class MyAssicurazioniService {
         Insurance insurance = new Insurance(veicolo,id);
         listInsurance.add(insurance);
     }
+
+    public void updateInsurance(InsuranceDTO insurance){
+        Insurance insuranceFiltered = new Insurance();
+        for (Insurance insuranceIt : listInsurance) {
+            if(insuranceIt.getId() == insurance.getId()){
+                insuranceFiltered = insuranceIt;
+            }else{
+                insuranceFiltered = null;
+            }
+        }
+        VehicleDTO veicolofromInsurance = insurance.getVeicolo();
+        VeicoloFactory veicoloFactory = new VeicoloFactory();
+        Veicolo veicolo = veicoloFactory.createVeicolo(veicolofromInsurance);
+        insuranceFiltered.setAssicurabile(veicolo);
+        insuranceFiltered.setId(insurance.getId());
+        }
+
 }

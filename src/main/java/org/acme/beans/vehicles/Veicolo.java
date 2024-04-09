@@ -10,6 +10,11 @@ public class Veicolo implements Assicurabile{
     private String nome;
     private String data;
     
+    @Override
+    public String toString() {
+        return "Veicolo [targa=" + this.targa + ", modello=" + this.modello + ", nome=" + this.nome + ", data=" + this.data + "]";
+    }
+
     public String getModello() {
         return modello;
     }
@@ -37,7 +42,10 @@ public class Veicolo implements Assicurabile{
     public Veicolo(){}
 
     public Veicolo(String targa,String modello ,String nome,String data){
-        
+        this.targa = targa;
+        this.modello = modello;
+        this.nome = nome;
+        this.data = data;
     }
 
     @Override
