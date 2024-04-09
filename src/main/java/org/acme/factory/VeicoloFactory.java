@@ -19,14 +19,17 @@ public class VeicoloFactory {
             String targa = vehicleDTO.getTarga();
             String data = vehicleDTO.getData();
             Tipo tipo = vehicleDTO.getTipo();
+            Veicolo veicolo;
             switch (tipo) {
                 case AUTO:
-                    return new Automobile(targa,modello,nome,data);
+                    veicolo = new Automobile(targa,modello,nome,data);
                 case MOTOCICLO:
-                    return new Motociclo(targa,modello,nome,data);
+                    veicolo = new Motociclo(targa,modello,nome,data);
                 default:
-                    return new Automobile(targa,modello,nome,data);
+                    veicolo = new Automobile(targa,modello,nome,data);
             }
+            return veicolo;
+
         } catch (Exception e) {
             throw new Error("Errore nella creazione del veicolo", e);
         }

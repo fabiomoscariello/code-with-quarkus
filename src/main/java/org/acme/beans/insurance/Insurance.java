@@ -30,4 +30,11 @@ public class Insurance {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Insurance [assicurabile=" + assicurabile + ", id=" + id + "]";
+    }
+
+    
+
 }
