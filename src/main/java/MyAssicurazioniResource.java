@@ -7,6 +7,7 @@ import org.acme.dto.VehicleDTO;
 
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -69,6 +70,22 @@ public class MyAssicurazioniResource {
         try {
             ArrayList<Insurance> insuranceList= service.getAllInsurances();
             return Response.ok(insuranceList).build();
+        } catch (Exception e) {
+            return Response.status(200, e.getMessage()).build();
+        }
+           
+    }
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/DeleteInsurance")
+    public Response DeleteInsuranceByTarga(@QueryParam("targa") String targa){
+        try {
+            if(targa != null){
+                service.deleteInsuranceByTarga(targa);
+                return Response.status(200,"Eliminazione effettuata").build();
+            }else{
+                return Response.notModified().build();
+            }
         } catch (Exception e) {
             return Response.status(200, e.getMessage()).build();
         }

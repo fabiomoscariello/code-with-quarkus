@@ -9,7 +9,6 @@ import org.acme.dto.InsuranceDTO;
 import org.acme.dto.VehicleDTO;
 import org.acme.factory.VeicoloFactory;
 
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -61,4 +60,16 @@ public class MyAssicurazioniService {
         }
         return listInsurance;
     }
+
+    public void deleteInsuranceByTarga(String targa) throws Exception{
+        for (Insurance insuranceIt : listInsurance) {
+            Assicurabile assicurabile = insuranceIt.getAssicurabile();
+            if(assicurabile.getTarga().equalsIgnoreCase(targa)){
+                listInsurance.remove(insuranceIt);
+            }else{
+                throw new Exception("Non esiste alcuna assicurazione associata a questa targa");
+            }
+        }
+    }
+
 }
