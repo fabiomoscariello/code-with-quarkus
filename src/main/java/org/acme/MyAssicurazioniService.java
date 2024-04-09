@@ -9,7 +9,6 @@ import org.acme.dto.InsuranceDTO;
 import org.acme.dto.VehicleDTO;
 import org.acme.factory.VeicoloFactory;
 
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
@@ -19,20 +18,12 @@ public class MyAssicurazioniService {
         String id = UUID.randomUUID().toString();
         VeicoloFactory veicoloFactory = new VeicoloFactory();
         Veicolo veicolo = veicoloFactory.createVeicolo(assicurabile);
-        Log.info("Veicolo Created" + veicolo);
-
         Insurance insurance = new Insurance(veicolo,id);
-        Log.info("Insurance Created" + insurance);
         listInsurance.add(insurance);
-        Log.info("ListInsurance" + listInsurance);
-
     }
 
     public void updateInsurance(InsuranceDTO insurance){
         Insurance insuranceFiltered = new Insurance();
-        // listInsurance.stream().forEach(x -> Log.info(x.getId()));
-        // List<Insurance> insuranceFiltered = listInsurance.stream()
-        // .filter(x -> x.getId() == insurance.getId()).collect(Collectors.toList());
         for (Insurance insuranceIt : listInsurance) {
             if(insuranceIt.getId() == insurance.getId()){
                 insuranceFiltered = insuranceIt;
@@ -45,8 +36,6 @@ public class MyAssicurazioniService {
         Veicolo veicolo = veicoloFactory.createVeicolo(veicolofromInsurance);
         insuranceFiltered.setAssicurabile(veicolo);
         insuranceFiltered.setId(insurance.getId());
-        Log.info("Insurance Updated" + insuranceFiltered);
-
         }
 
 }
