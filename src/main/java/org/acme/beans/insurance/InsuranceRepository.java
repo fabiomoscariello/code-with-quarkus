@@ -5,7 +5,6 @@ import org.acme.beans.vehicles.VeicoloRepository;
 import java.util.List;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
-import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 

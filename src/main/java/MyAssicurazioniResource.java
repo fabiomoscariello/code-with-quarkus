@@ -4,7 +4,9 @@ import org.acme.MyAssicurazioniService;
 import org.acme.beans.insurance.Insurance;
 import org.acme.dto.InsuranceDTO;
 import org.acme.dto.VehicleDTO;
+import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
@@ -23,8 +25,12 @@ public class MyAssicurazioniResource {
     @Inject
     MyAssicurazioniService service;
 
+    @Inject
+    JsonWebToken jwt; 
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({ "User", "Admin" }) 
     @Path("/Create")
     @Transactional
     public Response createInsurance(VehicleDTO vehicleDTO){
@@ -42,6 +48,7 @@ public class MyAssicurazioniResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/Update")
+    @RolesAllowed({ "User", "Admin" }) 
     @Transactional
     public Response updateInsurance(InsuranceDTO insurance){
         try {
@@ -58,6 +65,7 @@ public class MyAssicurazioniResource {
     }
     @GET
     @Path("/GetInsuranceByTarga")
+    @RolesAllowed({ "User", "Admin" }) 
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Response getInsuranceByTarga(@QueryParam("targa") String targa){
@@ -69,7 +77,7 @@ public class MyAssicurazioniResource {
                 return Response.ok(insurance).build();
 
             }else{
-                insuranceList= service.getAllInsurances();
+                insuranceList = service.getAllInsurances();
                 return Response.ok(insuranceList).build();
 
             }
@@ -84,6 +92,7 @@ public class MyAssicurazioniResource {
     }
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({ "User", "Admin" }) 
     @Path("/GetAllInsurance")
     @Transactional
     public Response getAllInsurance(){
@@ -101,6 +110,7 @@ public class MyAssicurazioniResource {
     }
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({ "User", "Admin" }) 
     @Path("/DeleteInsurance")
     @Transactional
     public Response DeleteInsuranceByTarga(@QueryParam("targa") String targa){

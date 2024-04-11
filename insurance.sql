@@ -1,7 +1,7 @@
 SET client_encoding = 'UTF8';
 
 CREATE TABLE TIPOVEICOLO(
-    id SERIAL PRIMARY KEY,
+    idTipo int PRIMARY KEY,
     tipologia text NOT NULL
 );
 
