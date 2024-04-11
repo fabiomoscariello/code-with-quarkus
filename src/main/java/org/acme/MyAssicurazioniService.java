@@ -19,10 +19,10 @@ public class MyAssicurazioniService {
     @Inject
     InsuranceRepository insuranceRepository;
     @Inject
-    VeicoloRepository veicoloRepository;
+    VeicoloService veicoloService;
     public Long createInsurance(VehicleDTO assicurabile) throws Exception{
         try {
-            Veicolo veicolo = veicoloRepository.createVeicolo(assicurabile);
+            Veicolo veicolo = veicoloService.createVeicolo(assicurabile);
             Insurance insurance = new Insurance(veicolo);
             return insuranceRepository.createInsurance(insurance);
         } catch (Exception e) {
@@ -36,7 +36,7 @@ public class MyAssicurazioniService {
         try{
         VehicleDTO veicolofromInsurance = insuranceDTO.getVeicolo();
         Insurance insurance = insuranceRepository.getInsuranceById(insuranceDTO.getId());
-        Veicolo veicolo = veicoloRepository.createVeicolo(veicolofromInsurance);
+        Veicolo veicolo = veicoloService.createVeicolo(veicolofromInsurance);
         insurance.setIdAssicurabile(veicolo);
         insuranceRepository.updateInsurance(insurance);
         }catch(Exception e){
@@ -69,4 +69,6 @@ public class MyAssicurazioniService {
             throw new Exception(e.getMessage());
         }
     }
+
+    
 }
