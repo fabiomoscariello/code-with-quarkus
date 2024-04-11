@@ -5,7 +5,6 @@ import java.util.List;
 import org.acme.beans.insurance.Insurance;
 import org.acme.beans.insurance.InsuranceRepository;
 import org.acme.beans.vehicles.Veicolo;
-import org.acme.beans.vehicles.VeicoloRepository;
 import org.acme.dto.InsuranceDTO;
 import org.acme.dto.VehicleDTO;
 
