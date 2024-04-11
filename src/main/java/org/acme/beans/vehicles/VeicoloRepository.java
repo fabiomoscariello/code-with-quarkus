@@ -24,13 +24,17 @@ public class VeicoloRepository implements PanacheRepository<Veicolo> {
       String data = veicolo.getData();
       TipologiaVeicolo tipo = veicolo.getTipo();
       TipoVeicolo tipoVeicolo = tipologiaVeicolo.getTipoVeicoloFromTipologia(tipo) ;
-      Veicolo veicoloToCreate = new Veicolo(nome,modello,targa,data,tipoVeicolo);
+      double valore = veicolo.getValore();
+      Veicolo veicoloToCreate = new Veicolo(nome,modello,targa,data,tipoVeicolo,valore);
       persist(veicoloToCreate);
       return veicoloToCreate;
       }catch(Exception e){
         throw new Exception(e.getMessage());
       }
     }
+
+
+
     
       public Veicolo updateVeicolo(Veicolo veicolo) {
         persist(veicolo);
