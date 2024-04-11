@@ -14,12 +14,12 @@ public class VehicleDTO {
     private final String nome;
     private final String data;
     private final TipologiaVeicolo tipo;
+    private final double valore;
     
-    @Override
-    public String toString() {
-        return "VehicleDTO [id="+id+", targa=" + targa + ", modello=" + modello + ", nome=" + nome + ", data=" + data + ", tipo="
-                + tipo + "]";
+    public double getValore() {
+        return valore;
     }
+
 
     public VehicleDTO(){
         this.id = "";
@@ -28,17 +28,19 @@ public class VehicleDTO {
         this.nome = "";
         this.data = "";
         this.tipo = TipologiaVeicolo.AUTO;
+        this.valore = 0.0;
 
     }
 
     // Constructor with required fields
-    public VehicleDTO(String id, String targa, String modello, String nome, String data, TipologiaVeicolo tipo) {
+    public VehicleDTO(String id, String targa, String modello, String nome, String data, TipologiaVeicolo tipo,double valore) {
       this.id = id;
       this.targa = targa;
       this.modello = modello;
       this.nome = nome;
       this.data = data;
       this.tipo = tipo;
+      this.valore = valore;
     }
 
     public String getTarga() {
