@@ -2,6 +2,7 @@ package org.acme.beans.vehicles;
 
 import org.acme.Assicurabile;
 import org.acme.beans.vehicles.vehicletype.TipoVeicolo;
+import org.acme.beans.vehicles.vehicletype.TipologiaVeicolo;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
@@ -31,7 +32,17 @@ public class Veicolo extends PanacheEntityBase implements Assicurabile{
     @OneToOne
     @JoinColumn(name="idVeicolo")
     private TipoVeicolo tipoVeicolo;
+    @Column(name="valore")
+    private double valore;
     
+    public double getValore() {
+        return valore;
+    }
+
+    public void setValore(double valore) {
+        this.valore = valore;
+    }
+
     public TipoVeicolo getTipoVeicolo() {
         return tipoVeicolo;
     }
@@ -40,10 +51,6 @@ public class Veicolo extends PanacheEntityBase implements Assicurabile{
         this.tipoVeicolo = tipoVeicolo;
     }
 
-    @Override
-    public String toString() {
-        return "Veicolo [id="+this.id + ", targa=" + this.targa + ", modello=" + this.modello + ", nome=" + this.nome + ", data=" + this.data + "]";
-    }
 
     public Long getId() {
         return id;
@@ -75,12 +82,13 @@ public class Veicolo extends PanacheEntityBase implements Assicurabile{
 
     public Veicolo(){}
 
-    public Veicolo(String nome,String modello ,String targa,String data, TipoVeicolo tipo){
+    public Veicolo(String nome,String modello ,String targa,String data, TipoVeicolo tipo,double valore){
         this.targa = targa;
         this.modello = modello;
         this.nome = nome;
         this.data = data;
         this.tipoVeicolo = tipo;
+        this.valore = valore;
     }
 
     @Override
