@@ -2,7 +2,6 @@ package org.acme.beans.vehicles;
 
 import org.acme.Assicurabile;
 import org.acme.beans.vehicles.vehicletype.TipoVeicolo;
-import org.acme.beans.vehicles.vehicletype.TipologiaVeicolo;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.Column;
