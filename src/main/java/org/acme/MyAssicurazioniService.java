@@ -1,75 +1,72 @@
 package org.acme;
 
-import java.util.ArrayList;
-import java.util.UUID;
+import java.util.List;
 
 import org.acme.beans.insurance.Insurance;
+import org.acme.beans.insurance.InsuranceRepository;
 import org.acme.beans.vehicles.Veicolo;
+import org.acme.beans.vehicles.VeicoloRepository;
 import org.acme.dto.InsuranceDTO;
 import org.acme.dto.VehicleDTO;
-import org.acme.factory.VeicoloFactory;
 
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 
 @ApplicationScoped
 public class MyAssicurazioniService {
-    private ArrayList<Insurance> listInsurance = new ArrayList<Insurance>();
-    public void createInsurance(VehicleDTO assicurabile){
-        String id = UUID.randomUUID().toString();
-        VeicoloFactory veicoloFactory = new VeicoloFactory();
-        Veicolo veicolo = veicoloFactory.createVeicolo(assicurabile);
-        Insurance insurance = new Insurance(veicolo,id);
-        listInsurance.add(insurance);
+    
+    @Inject
+    InsuranceRepository insuranceRepository;
+    @Inject
+    VeicoloRepository veicoloRepository;
+    public Long createInsurance(VehicleDTO assicurabile) throws Exception{
+        try {
+            Veicolo veicolo = veicoloRepository.createVeicolo(assicurabile);
+            Insurance insurance = new Insurance(veicolo);
+            return insuranceRepository.createInsurance(insurance);
+        } catch (Exception e) {
+            Log.error(e);
+            throw new Exception(e.getMessage());
+        }
+
     }
 
-    public void updateInsurance(InsuranceDTO insurance){
-        Insurance insuranceFiltered = new Insurance();
-        for (Insurance insuranceIt : listInsurance) {
-            if(insuranceIt.getId() == insurance.getId()){
-                insuranceFiltered = insuranceIt;
-            }else{
-                insuranceFiltered = null;
-            }
+    public void updateInsurance(InsuranceDTO insuranceDTO) throws Exception{
+        try{
+        VehicleDTO veicolofromInsurance = insuranceDTO.getVeicolo();
+        Insurance insurance = insuranceRepository.getInsuranceById(insuranceDTO.getId());
+        Veicolo veicolo = veicoloRepository.createVeicolo(veicolofromInsurance);
+        insurance.setIdAssicurabile(veicolo);
+        insuranceRepository.updateInsurance(insurance);
+        }catch(Exception e){
+            throw new Exception(e.getMessage());
         }
-        VehicleDTO veicolofromInsurance = insurance.getVeicolo();
-        VeicoloFactory veicoloFactory = new VeicoloFactory();
-        Veicolo veicolo = veicoloFactory.createVeicolo(veicolofromInsurance);
-        insuranceFiltered.setAssicurabile(veicolo);
-        insuranceFiltered.setId(insurance.getId());
+
         }
 
     public Insurance getInsurancebyTarga(String targa) throws Exception{
-        Insurance insuranceReturned = null;
-        for (Insurance insuranceIt : listInsurance) {
-            Assicurabile assicurabile = insuranceIt.getAssicurabile();
-            System.out.println(assicurabile);
-            if(assicurabile.getTarga().equalsIgnoreCase(targa)){
-                insuranceReturned = insuranceIt;
-            }
-        }
-        if(insuranceReturned != null){
-            return insuranceReturned;
-        }else{
-            throw new Exception("Nessuna Assicurazione disponibile per quella targa");
+        try {
+            return insuranceRepository.getInsuranceByTarga(targa);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
     }
 
-    public ArrayList<Insurance> getAllInsurances() throws Exception{
-        if(listInsurance.size() <= 0){
-            throw new Exception("Non sono disponibili alcune assicurazioni");
+    public List<Insurance> getAllInsurances() throws Exception{
+        try {
+            return insuranceRepository.getAllInsurance();
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
-        return listInsurance;
     }
 
     public void deleteInsuranceByTarga(String targa) throws Exception{
-        for (Insurance insuranceIt : listInsurance) {
-            Assicurabile assicurabile = insuranceIt.getAssicurabile();
-            if(assicurabile.getTarga().equalsIgnoreCase(targa)){
-                listInsurance.remove(insuranceIt);
-            }else{
-                throw new Exception("Non esiste alcuna assicurazione associata a questa targa");
-            }
+        try {
+            insuranceRepository.deleteInsuranceByTarga(targa);
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
         }
     }
-
 }

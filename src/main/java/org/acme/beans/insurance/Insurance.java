@@ -1,38 +1,52 @@
 package org.acme.beans.insurance;
 
-import org.acme.Assicurabile;
+import org.acme.beans.vehicles.Veicolo;
 
-public class Insurance {
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+@Entity
+@Table(name="insurance")
+public class Insurance extends PanacheEntityBase {
+    @OneToOne
+    @JoinColumn(name="idAssicurabile")
+    private Veicolo idAssicurabile;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public Insurance(){
+    }
+
+    public Insurance(Veicolo idAssicurabile) {
+        this.idAssicurabile = idAssicurabile;
+    }
+
     
-    private Assicurabile assicurabile;
-    private String id;
-
-    public Assicurabile getAssicurabile() {
-        return assicurabile;
+    public Veicolo getIdAssicurabile() {
+        return idAssicurabile;
     }
 
-    public void setAssicurabile(Assicurabile assicurabile) {
-        this.assicurabile = assicurabile;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Insurance(){}
-
-    public Insurance(Assicurabile assicurabile, String id) {
-        this.assicurabile = assicurabile;
-        this.id = id;
+    public void setIdAssicurabile(Veicolo idAssicurabile) {
+        this.idAssicurabile = idAssicurabile;
     }
 
     @Override
     public String toString() {
-        return "Insurance [assicurabile=" + assicurabile + ", id=" + id + "]";
+        return "Insurance [assicurabile=" + idAssicurabile + ", id=" + id + "]";
     }
 
     

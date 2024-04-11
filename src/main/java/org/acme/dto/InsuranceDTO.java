@@ -1,27 +1,27 @@
 package org.acme.dto;
 
+import java.util.Random;
+
 public class InsuranceDTO {
 
-    private final String id;
     private final VehicleDTO veicolo;
-    
+    private final Long id;
     @Override
     public String toString() {
-        return "InsuranceDTO [id=" + id + ", veicolo=" + veicolo + "]";
+        return "InsuranceDTO [veicolo=" + veicolo + "]";
     }
 
     public InsuranceDTO(){
-        this.id = "";
+        this.id = Math.abs(new Random().nextLong());
         this.veicolo = new VehicleDTO();
     }
 
     // Constructor with required fields
-    public InsuranceDTO(String id, VehicleDTO vehicle) {
+    public InsuranceDTO(Long id,VehicleDTO vehicle) {
         this.id = id;
         this.veicolo = vehicle;
     }
-
-    public String getId() {
+    public Long getId(){
         return this.id;
     }
 
