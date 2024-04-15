@@ -41,36 +41,40 @@
 		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-container-image-docker</artifactId>
+			<artifactId>quarkus-container-image-jib</artifactId>
 		</dependency>
+		<!-- Hibernate ORM specific dependencies -->
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-junit5</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- Hibernate ORM specific dependencies -->
+		<!-- JDBC driver dependencies -->
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- JDBC driver dependencies -->
-		<dependency>
-			<groupId>io.quarkus</groupId>
-			<artifactId>quarkus-hibernate-orm-panache</artifactId>
-		</dependency>
         <dependency>
     <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-jdbc-postgresql</artifactId>
+    <artifactId>quarkus-hibernate-orm-panache</artifactId>
 </dependency>
 <dependency>
     <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-smallrye-jwt</artifactId>
+    <artifactId>quarkus-jdbc-postgresql</artifactId>
 </dependency>
+		<dependency>
+			<groupId>io.quarkus</groupId>
+			<artifactId>quarkus-smallrye-jwt</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>io.quarkus</groupId>
 			<artifactId>quarkus-smallrye-jwt-build</artifactId>
 		</dependency>
+		<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-grpc</artifactId>
+</dependency>
 	</dependencies>
 	<build>
 		<plugins>
