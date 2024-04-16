@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  quarkus-app:
+    image: quarkus-group/quakus-code:1.0.0-SNAPSHOT
+    ports:
+      - "8080:8080"
+    environment:
+      # Assuming your Quarkus app uses environment variables for database connection
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_SERVICE_HOST: postgres
+      DB_NAME: postgres
+      POSTGRES_PORT: 5432
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: postgres
+      POSTGRES_SERVICE_HOST: postgres
+      DB_NAME: postgres
+    ports:
+      - "9000:5432"
