@@ -1,10 +1,13 @@
 import java.util.List;
+import java.util.concurrent.CompletionStage;
 
 import org.acme.MyAssicurazioniService;
 import org.acme.beans.insurance.Insurance;
 import org.acme.dto.InsuranceDTO;
 import org.acme.dto.VehicleDTO;
 import org.eclipse.microprofile.jwt.JsonWebToken;
+import org.eclipse.microprofile.reactive.messaging.Channel;
+import org.eclipse.microprofile.reactive.messaging.Emitter;
 
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -26,7 +29,12 @@ public class MyAssicurazioniResource {
     MyAssicurazioniService service;
 
     @Inject
-    JsonWebToken jwt; 
+    JsonWebToken jwt;
+
+    @Inject
+    @Channel("my-topic-insurance")
+    Emitter<String> insuranceEmitter;
+ 
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -35,7 +43,8 @@ public class MyAssicurazioniResource {
     @Transactional
     public Response createInsurance(VehicleDTO vehicleDTO){
         try{
-            Long id = service.createInsurance(vehicleDTO);
+            Insurance id = service.createInsurance(vehicleDTO);
+            insuranceEmitter.send(id.toString()).toCompletableFuture().join();
             String message = "{\"id\":"+ id + ",\"message\": "+"\"Inserimento avvenuto correttamente\"}";
             return Response.status(Response.Status.OK).type(MediaType.APPLICATION_JSON).entity(message).build();
         }catch(Exception e){

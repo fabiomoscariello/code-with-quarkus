@@ -19,7 +19,7 @@ public class MyAssicurazioniService {
     InsuranceRepository insuranceRepository;
     @Inject
     VeicoloService veicoloService;
-    public Long createInsurance(VehicleDTO assicurabile) throws Exception{
+    public Insurance createInsurance(VehicleDTO assicurabile) throws Exception{
         try {
             Veicolo veicolo = veicoloService.createVeicolo(assicurabile);
             Insurance insurance = new Insurance(veicolo);
