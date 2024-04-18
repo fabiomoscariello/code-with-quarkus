@@ -99,4 +99,14 @@ public class Veicolo extends PanacheEntityBase implements Assicurabile{
     public String getTarga() {
         return this.targa;
     }
+
+    @Override
+    public String toString() {
+        return "Veicolo [id=" + id + ", targa=" + targa + ", modello=" + modello + ", nome=" + nome + ", data=" + data
+                + ", tipoVeicolo=" + tipoVeicolo + ", valore=" + valore + "]";
+    }
+
+    
+
+    
 }

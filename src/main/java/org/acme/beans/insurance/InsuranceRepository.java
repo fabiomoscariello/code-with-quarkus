@@ -12,9 +12,9 @@ import jakarta.inject.Inject;
 public class InsuranceRepository implements PanacheRepository<Insurance> {
     @Inject 
     VeicoloRepository veicoloRepository;
-    public Long createInsurance(Insurance insurance) {
+    public Insurance createInsurance(Insurance insurance) {
         persist(insurance);
-        return insurance.getId();
+        return insurance;
       }
     
       public Insurance updateInsurance(Insurance insurance) {

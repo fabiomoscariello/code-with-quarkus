@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.9"
 
 services:
   quarkus-app:
@@ -25,19 +25,6 @@ services:
     ports:
       - "9000:5432"
   
-  #KAFKA
-  topic-creator:
-    image: wurstmeister/kafka:latest
-    command: ["sh", "-c", "kafka-topics.sh --create \
-      --zookeeper zookeeper:9092 \
-      --topic my-topic \
-      --partitions 2 \
-      --replication-factor 3"]
-    environment:
-      ZOOKEEPER_CONNECT: zookeeper:2181  # Replace if using a different service name
-      TOPIC_NAME: my-topic
-      TOPIC_PARTITIONS: 2
-      TOPIC_REPLICATION_FACTOR: 3
   # Main Kafka broker 
   kafka:
     image: wurstmeister/kafka:latest
@@ -47,22 +34,22 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092  # Listen on all interfaces, port 9092
       KAFKA_ADVERTISED_HOST_NAME: kafka  # Replace with the container's hostname (optional)
-    depends_on:
-      - topic-creator
 
   # Zookeeper service (modify ports if needed)
   zookeeper:
     image: wurstmeister/zookeeper:latest
     ports:
       - "2181:2181"
-  kafka-manager:
-    image: hlebalbau/kafka-manager:stable  # Or another Kafka Manager image
-    depends_on:
-      - zookeeper
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
     ports:
-      - "9100:9000"  # Expose Kafka Manager port to host
+      - 9050:8080
+    depends_on:
+      - kafka
     environment:
-      ZK_HOSTS: "zookeeper:2181"
-      JMX_PORT: 5000
+      DYNAMIC_CONFIG_ENABLED: 'true'
+      KAFKA_CLUSTERS_0_NAME: wizard_test
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
 volumes:
   zookeeper-data: {}
